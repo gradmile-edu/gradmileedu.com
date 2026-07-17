@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="google-site-verification" content="7tE79ExV82YAiHIpvuntL6XTCNo1gLDzINVTJ-cfWkI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="7tE79ExV82YAiHIpvuntL6XTCNo1gLDzINVTJ-cfWkI" />
     <title>GradMile Edu | Study Abroad</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -57,13 +58,32 @@ body { font-family: 'Poppins', sans-serif; color: var(--dark); line-height: 1.6;
 .service-card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--dark); }
 .service-card p { color: var(--gray); font-size: 0.95rem; }
 .destinations { padding: 100px 0; }
-.destinations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+.destinations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; perspective: 1000px; }
 .continent-label { grid-column: 1 / -1; font-size: 1.4rem; font-weight: 700; color: var(--primary); margin-top: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--primary); }
 .continent-label:first-child { margin-top: 0; }
-.destination-card { background: white; border: 1px solid #e5e7eb; border-radius: var(--radius); padding: 30px; transition: var(--transition); }
-.destination-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
-.dest-flag { font-size: 2.5rem; margin-bottom: 10px; }
-.destination-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
+.flip-card { height: 320px; perspective: 1000px; }
+.flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; border-radius: var(--radius); }
+.flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+.flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: var(--radius); overflow: hidden; }
+.flip-card-front { background-size: cover; background-position: center; display: flex; align-items: flex-end; padding: 25px; }
+.flip-card-front::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 60%, rgba(255,255,255,0.05) 100%); }
+.flip-card-front .front-content { position: relative; z-index: 2; color: white; }
+.flip-card-front .front-content h3 { font-size: 1.5rem; margin-bottom: 5px; }
+.flip-card-front .front-content .dest-flag { font-size: 2rem; }
+.flip-card-back { background: white; border: 1px solid #e5e7eb; transform: rotateY(180deg); padding: 25px 30px; display: flex; flex-direction: column; justify-content: flex-start; z-index: 2; }
+.flip-card-back h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; }
+.destination-card { background: white; border: 1px solid #e5e7eb; border-radius: var(--radius); transition: var(--transition); position: relative; perspective: 1000px; height: 320px; }
+.destination-card:hover { transform: none; box-shadow: none; border-color: var(--primary); }
+.card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s ease; transform-style: preserve-3d; }
+.destination-card:hover .card-inner { transform: rotateY(180deg); }
+.card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius); overflow: hidden; }
+.card-front { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 30px; background-size: cover; background-position: center; }
+.card-front::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(255,255,255,0.95) 30%, rgba(255,255,255,0.3) 100%); }
+.card-front .dest-flag { position: relative; z-index: 1; font-size: 3rem; margin-bottom: 5px; }
+.card-front h3 { position: relative; z-index: 1; font-size: 1.4rem; font-weight: 700; color: var(--dark); }
+.card-front .flip-hint { position: relative; z-index: 1; font-size: 0.75rem; color: var(--gray); margin-top: 8px; }
+.card-back { background: white; padding: 25px; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; }
+.card-back h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; color: var(--dark); }
 .dest-facts { list-style: none; font-size: 0.88rem; color: var(--gray); }
 .dest-facts li { padding: 5px 0; border-bottom: 1px solid #f3f4f6; }
 .dest-facts li:last-child { border-bottom: none; }
@@ -145,20 +165,20 @@ body { font-family: 'Poppins', sans-serif; color: var(--dark); line-height: 1.6;
 <section class="destinations" id="destinations"><div class="container">
 <div class="section-header"><span class="section-tag">Where to Study</span><h2>Top Destinations for Higher Education</h2><p>Explore countries offering world-class education and career opportunities</p></div>
 <div class="destinations-grid">
-<h3 class="continent-label">🇪🇺 Europe</h3>
-<div class="destination-card"><div class="dest-flag">🇩🇪</div><h3>Germany</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Engineering & Technology</li><li><strong>Tuition:</strong> €0 – €1,500/semester (public)</li><li><strong>Living Cost:</strong> €850 – €1,200/month</li><li><strong>Language:</strong> English & German programs</li><li><strong>Post-Study Work:</strong> 18-month job seeker visa</li></ul></div>
-<div class="destination-card"><div class="dest-flag">🇳🇱</div><h3>Netherlands</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Business & Social Sciences</li><li><strong>Tuition:</strong> €8,000 – €20,000/year</li><li><strong>Living Cost:</strong> €900 – €1,300/month</li><li><strong>Language:</strong> English (widely available)</li><li><strong>Post-Study Work:</strong> 1-year Orientation visa</li></ul></div>
-<div class="destination-card"><div class="dest-flag">🇫🇷</div><h3>France</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Arts, Fashion & Business</li><li><strong>Tuition:</strong> €2,770 – €16,000/year</li><li><strong>Living Cost:</strong> €800 – €1,200/month</li><li><strong>Language:</strong> French & English programs</li><li><strong>Post-Study Work:</strong> 2-year residence permit</li></ul></div>
-<div class="destination-card"><div class="dest-flag">🇮🇹</div><h3>Italy</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Architecture, Design & Arts</li><li><strong>Tuition:</strong> €900 – €4,000/year (public)</li><li><strong>Living Cost:</strong> €700 – €1,100/month</li><li><strong>Language:</strong> Italian & English programs</li></ul></div>
-<div class="destination-card"><div class="dest-flag">🇮🇪</div><h3>Ireland</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Technology & Pharma</li><li><strong>Tuition:</strong> €10,000 – €25,000/year</li><li><strong>Living Cost:</strong> €900 – €1,500/month</li><li><strong>Language:</strong> English</li><li><strong>Post-Study Work:</strong> 2-year stay-back visa</li></ul></div>
-<div class="destination-card"><div class="dest-flag">🇸🇪</div><h3>Sweden</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Innovation & Sustainability</li><li><strong>Tuition:</strong> SEK 80,000 – 295,000/year</li><li><strong>Living Cost:</strong> ~€800/month</li><li><strong>Language:</strong> English (most Masters)</li></ul></div>
-<div class="destination-card"><div class="dest-flag">🇪🇸</div><h3>Spain</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Business & Tourism</li><li><strong>Tuition:</strong> €2,000 – €18,000/year</li><li><strong>Living Cost:</strong> €700 – €1,000/month</li><li><strong>Language:</strong> Spanish & English programs</li></ul></div>
-<div class="destination-card"><div class="dest-flag">🇩🇰</div><h3>Denmark</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Green Energy & Design</li><li><strong>Tuition:</strong> €6,000 – €16,000/year</li><li><strong>Living Cost:</strong> ~€900/month</li><li><strong>Language:</strong> English (most Masters)</li></ul></div>
-<div class="destination-card"><div class="dest-flag">🇵🇱</div><h3>Poland</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Medicine & Engineering</li><li><strong>Tuition:</strong> €2,000 – €6,000/year</li><li><strong>Living Cost:</strong> €400 – €700/month</li><li><strong>Language:</strong> English programs available</li></ul></div>
-<h3 class="continent-label">🇬🇧 United Kingdom</h3>
-<div class="destination-card"><div class="dest-flag">🇬🇧</div><h3>United Kingdom</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Business, Finance & STEM</li><li><strong>Tuition:</strong> £12,000 – £38,000/year</li><li><strong>Living Cost:</strong> £1,000 – £1,500/month</li><li><strong>Language:</strong> English</li><li><strong>Post-Study Work:</strong> 2-year Graduate Route visa</li></ul></div>
-<h3 class="continent-label">🇨🇦 North America</h3>
-<div class="destination-card"><div class="dest-flag">🇨🇦</div><h3>Canada</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Technology, Business & Healthcare</li><li><strong>Tuition:</strong> CAD $20,000 – $55,000/year</li><li><strong>Living Cost:</strong> CAD $1,000 – $1,800/month</li><li><strong>Language:</strong> English & French programs</li><li><strong>Post-Study Work:</strong> Up to 3-year PGWP</li></ul></div>
+<h3 class="continent-label">Europe</h3>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front" style="background-image:url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&q=80')"><div class="front-content"><span class="dest-flag">🇮🇹</span><h3>Italy</h3></div></div><div class="flip-card-back"><h3>🇮🇹 Italy</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Engineering, Sciences, Architecture & Design</li><li><strong>Tuition:</strong> €900 – €4,000/year (public)</li><li><strong>Living Cost:</strong> €700 – €1,100/month</li><li><strong>Language:</strong> English & Italian programs</li><li><strong>Post-Study Work:</strong> 12-month residence extension</li></ul></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front" style="background-image:url('https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=600&q=80')"><div class="front-content"><span class="dest-flag">🇩🇪</span><h3>Germany</h3></div></div><div class="flip-card-back"><h3>🇩🇪 Germany</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Engineering, Technology & Sciences</li><li><strong>Tuition:</strong> €0 – €1,500/semester (public)</li><li><strong>Living Cost:</strong> €850 – €1,200/month</li><li><strong>Language:</strong> English & German programs</li><li><strong>Post-Study Work:</strong> 18-month job seeker visa</li></ul></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front" style="background-image:url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80')"><div class="front-content"><span class="dest-flag">🇫🇷</span><h3>France</h3></div></div><div class="flip-card-back"><h3>🇫🇷 France</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Engineering, Sciences, Arts & Business</li><li><strong>Tuition:</strong> €2,770 – €16,000/year</li><li><strong>Living Cost:</strong> €800 – €1,200/month</li><li><strong>Language:</strong> English & French programs</li><li><strong>Post-Study Work:</strong> 2-year residence permit</li></ul></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front" style="background-image:url('https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=600&q=80')"><div class="front-content"><span class="dest-flag">🇳🇱</span><h3>Netherlands</h3></div></div><div class="flip-card-back"><h3>🇳🇱 Netherlands</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Engineering, Business & Social Sciences</li><li><strong>Tuition:</strong> €8,000 – €20,000/year</li><li><strong>Living Cost:</strong> €900 – €1,300/month</li><li><strong>Language:</strong> English (widely available)</li><li><strong>Post-Study Work:</strong> 1-year Orientation visa</li></ul></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front" style="background-image:url('https://images.unsplash.com/photo-1549918864-48ac978761a4?w=600&q=80')"><div class="front-content"><span class="dest-flag">🇮🇪</span><h3>Ireland</h3></div></div><div class="flip-card-back"><h3>🇮🇪 Ireland</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Engineering, Technology & Pharma</li><li><strong>Tuition:</strong> €10,000 – €25,000/year</li><li><strong>Living Cost:</strong> €900 – €1,500/month</li><li><strong>Language:</strong> English</li><li><strong>Post-Study Work:</strong> 2-year stay-back visa</li></ul></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front" style="background-image:url('https://images.unsplash.com/photo-1509356843151-3e7d96241e11?w=600&q=80')"><div class="front-content"><span class="dest-flag">🇸🇪</span><h3>Sweden</h3></div></div><div class="flip-card-back"><h3>🇸🇪 Sweden</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Engineering, Innovation & Sustainability</li><li><strong>Tuition:</strong> SEK 80,000 – 295,000/year</li><li><strong>Living Cost:</strong> ~€800/month</li><li><strong>Language:</strong> English (most Masters)</li><li><strong>Post-Study Work:</strong> 12-month job seeker extension</li></ul></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front" style="background-image:url('https://images.unsplash.com/photo-1583422409516-2895a77efded?w=600&q=80')"><div class="front-content"><span class="dest-flag">🇪🇸</span><h3>Spain</h3></div></div><div class="flip-card-back"><h3>🇪🇸 Spain</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Engineering, Business & Tourism</li><li><strong>Tuition:</strong> €2,000 – €18,000/year</li><li><strong>Living Cost:</strong> €700 – €1,000/month</li><li><strong>Language:</strong> English & Spanish programs</li><li><strong>Post-Study Work:</strong> 12-month job search permit</li></ul></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front" style="background-image:url('https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=600&q=80')"><div class="front-content"><span class="dest-flag">🇩🇰</span><h3>Denmark</h3></div></div><div class="flip-card-back"><h3>🇩🇰 Denmark</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Engineering, Green Energy & Design</li><li><strong>Tuition:</strong> €6,000 – €16,000/year</li><li><strong>Living Cost:</strong> ~€900/month</li><li><strong>Language:</strong> English (most Masters)</li><li><strong>Post-Study Work:</strong> 6-month job search extension</li></ul></div></div></div>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front" style="background-image:url('https://images.unsplash.com/photo-1519197924294-4ba991a11128?w=600&q=80')"><div class="front-content"><span class="dest-flag">🇵🇱</span><h3>Poland</h3></div></div><div class="flip-card-back"><h3>🇵🇱 Poland</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Engineering, Medicine & Sciences</li><li><strong>Tuition:</strong> €2,000 – €6,000/year</li><li><strong>Living Cost:</strong> €400 – €700/month</li><li><strong>Language:</strong> English programs available</li><li><strong>Post-Study Work:</strong> 9-month job search permit</li></ul></div></div></div>
+<h3 class="continent-label">United Kingdom</h3>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front" style="background-image:url('https://images.unsplash.com/photo-1520986606214-8b456906c813?w=600&q=80')"><div class="front-content"><span class="dest-flag">🇬🇧</span><h3>United Kingdom</h3></div></div><div class="flip-card-back"><h3>🇬🇧 United Kingdom</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Engineering, Business, Finance & STEM</li><li><strong>Tuition:</strong> £12,000 – £38,000/year</li><li><strong>Living Cost:</strong> £1,000 – £1,500/month</li><li><strong>Language:</strong> English</li><li><strong>Post-Study Work:</strong> 2-year Graduate Route visa</li></ul></div></div></div>
+<h3 class="continent-label">North America</h3>
+<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front" style="background-image:url('https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=600&q=80')"><div class="front-content"><span class="dest-flag">🇨🇦</span><h3>Canada</h3></div></div><div class="flip-card-back"><h3>🇨🇦 Canada</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Engineering, Technology, Business & Healthcare</li><li><strong>Tuition:</strong> CAD $20,000 – $55,000/year</li><li><strong>Living Cost:</strong> CAD $1,000 – $1,800/month</li><li><strong>Language:</strong> English & French programs</li><li><strong>Post-Study Work:</strong> Up to 3-year PGWP</li></ul></div></div></div>
 </div></div></section>
 
 <section class="enquiry" id="enquiry"><div class="container"><div class="enquiry-wrapper">
@@ -227,7 +247,10 @@ document.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('cli
 const hamburger = document.getElementById('hamburger'); const navLinks = document.querySelector('.nav-links');
 hamburger.addEventListener('click', () => { navLinks.classList.toggle('active'); });
 const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; } }); }, { threshold: 0.1 });
-document.querySelectorAll('.service-card, .destination-card').forEach(card => { card.style.opacity = '0'; card.style.transform = 'translateY(20px)'; card.style.transition = 'opacity 0.6s ease, transform 0.6s ease'; observer.observe(card); });
+document.querySelectorAll('.service-card, .flip-card').forEach(card => { card.style.opacity = '0'; card.style.transform = 'translateY(20px)'; card.style.transition = 'opacity 0.6s ease, transform 0.6s ease'; observer.observe(card); });
+// Auto-flip cards when scrolled into view, flip back when out of view
+const flipObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { setTimeout(() => { entry.target.classList.add('flipped'); }, 800); } else { entry.target.classList.remove('flipped'); } }); }, { threshold: 0.3 });
+document.querySelectorAll('.flip-card').forEach(card => { flipObserver.observe(card); });
 </script>
 </body>
 </html>
