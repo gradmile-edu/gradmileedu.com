@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradMile Edu | Study Abroad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --primary: #1a237e; --primary-light: #3949ab; --accent: #ff6f00; --dark: #1a1a2e; --gray: #6b7280; --light: #f8fafc; --shadow: 0 4px 20px rgba(0,0,0,0.08); --shadow-lg: 0 10px 40px rgba(0,0,0,0.12); --radius: 12px; --transition: all 0.3s ease; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Poppins', sans-serif; color: var(--dark); line-height: 1.6; overflow-x: hidden; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0,0,0,0.05); transition: var(--transition); }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 1.4rem; font-weight: 700; color: var(--dark); }
+.logo-icon { font-size: 1.8rem; } .logo-text .highlight { color: var(--primary); }
+.nav-links { display: flex; list-style: none; gap: 30px; }
+.nav-links a { text-decoration: none; color: var(--dark); font-weight: 500; font-size: 0.95rem; transition: var(--transition); }
+.nav-links a:hover { color: var(--primary); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 25px; height: 3px; background: var(--dark); border-radius: 3px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 50px; font-weight: 600; font-size: 0.95rem; text-decoration: none; border: none; cursor: pointer; transition: var(--transition); }
+.btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; box-shadow: 0 4px 15px rgba(26,35,126,0.3); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(26,35,126,0.4); }
+.btn-outline { background: transparent; color: white; border: 2px solid white; }
+.btn-outline:hover { background: white; color: var(--primary); }
+.btn-lg { padding: 16px 36px; font-size: 1.05rem; }
+.btn-full { width: 100%; justify-content: center; }
+.btn-whatsapp { background: #25D366; color: white; box-shadow: 0 4px 15px rgba(37,211,102,0.3); }
+.btn-whatsapp:hover { background: #1da851; transform: translateY(-2px); }
+.hero { position: relative; height: 100vh; min-height: 700px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.hero-slider { position: absolute; inset: 0; z-index: 0; }
+.hero-slider .slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease; }
+.hero-slider .slide.active { opacity: 1; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,35,126,0.85), rgba(13,17,63,0.75)); z-index: 1; }
+.hero-content { position: relative; z-index: 2; text-align: center; color: white; max-width: 850px; padding: 0 20px; }
+.hero-badge { display: inline-block; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.2); }
+.hero-content h1 { font-size: 3.2rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
+.typed-text { color: var(--accent); }
+.hero-content p { font-size: 1.15rem; opacity: 0.9; margin-bottom: 35px; line-height: 1.7; }
+.hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 50px; }
+.hero-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+.stat { text-align: center; } .stat-number { display: block; font-size: 2rem; font-weight: 800; } .stat-label { font-size: 0.85rem; opacity: 0.8; }
+.scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 2; color: white; animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+.section-header { text-align: center; margin-bottom: 50px; }
+.section-tag { display: inline-block; background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; padding: 6px 16px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+.section-header h2 { font-size: 2.2rem; font-weight: 700; margin-bottom: 10px; color: var(--dark); }
+.section-header p { color: var(--gray); font-size: 1.05rem; }
+.services { padding: 100px 0; background: var(--light); }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.service-card { background: white; padding: 35px 30px; border-radius: var(--radius); box-shadow: var(--shadow); transition: var(--transition); text-align: center; text-decoration: none; color: inherit; display: block; }
+.service-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.service-icon { width: 70px; height: 70px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.5rem; color: white; }
+.service-card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--dark); }
+.service-card p { color: var(--gray); font-size: 0.95rem; }
+.destinations { padding: 100px 0; }
+.destinations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+.continent-label { grid-column: 1 / -1; font-size: 1.4rem; font-weight: 700; color: var(--primary); margin-top: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--primary); }
+.continent-label:first-child { margin-top: 0; }
+.destination-card { background: white; border: 1px solid #e5e7eb; border-radius: var(--radius); padding: 30px; transition: var(--transition); }
+.destination-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+.dest-flag { font-size: 2.5rem; margin-bottom: 10px; }
+.destination-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
+.dest-facts { list-style: none; font-size: 0.88rem; color: var(--gray); }
+.dest-facts li { padding: 5px 0; border-bottom: 1px solid #f3f4f6; }
+.dest-facts li:last-child { border-bottom: none; }
+.dest-facts strong { color: var(--dark); }
+.enquiry { padding: 100px 0; background: var(--light); }
+.enquiry-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+.enquiry-info h2 { font-size: 2rem; margin-bottom: 15px; }
+.enquiry-info p { color: var(--gray); margin-bottom: 25px; }
+.enquiry-features { margin-bottom: 30px; }
+.feature-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; font-size: 0.95rem; }
+.feature-item i { color: #10b981; font-size: 1.1rem; }
+.enquiry-image { width: 100%; border-radius: var(--radius); margin-top: 20px; box-shadow: var(--shadow); }
+.enquiry-form-container { background: white; padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+.enquiry-form h3 { font-size: 1.3rem; margin-bottom: 25px; text-align: center; }
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 6px; color: var(--dark); }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.95rem; font-family: inherit; transition: var(--transition); background: #fafafa; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); background: white; box-shadow: 0 0 0 3px rgba(26,35,126,0.1); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.form-disclaimer { text-align: center; font-size: 0.8rem; color: var(--gray); margin-top: 12px; }
+.form-success { text-align: center; padding: 40px; }
+.form-success i { font-size: 4rem; color: #10b981; margin-bottom: 15px; }
+.form-success h3 { font-size: 1.5rem; margin-bottom: 10px; }
+.hidden { display: none; }
+.contact { padding: 100px 0; }
+.whatsapp-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.whatsapp-card { background: white; padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow-lg); text-align: center; }
+.wa-icon { width: 80px; height: 80px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 2.5rem; color: white; }
+.whatsapp-card h3 { margin-bottom: 10px; } .whatsapp-card p { color: var(--gray); margin-bottom: 25px; }
+.wa-form .form-group { text-align: left; }
+.contact-info-card { background: white; padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow); }
+.contact-info-card h3 { margin-bottom: 25px; }
+.contact-item { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid #f3f4f6; }
+.contact-item:last-of-type { border-bottom: none; }
+.contact-item i { width: 45px; height: 45px; background: var(--light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.1rem; flex-shrink: 0; }
+.contact-item a { text-decoration: none; color: var(--primary); font-weight: 600; }
+.contact-item strong { display: block; font-size: 0.9rem; } .contact-item p { color: var(--gray); font-size: 0.88rem; }
+.footer { background: var(--dark); color: white; padding: 60px 0 20px; }
+.footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand p { color: rgba(255,255,255,0.7); margin-top: 15px; font-size: 0.9rem; }
+.footer-links h4 { margin-bottom: 15px; font-size: 1rem; }
+.footer-links a { display: block; color: rgba(255,255,255,0.7); text-decoration: none; padding: 5px 0; font-size: 0.9rem; transition: var(--transition); }
+.footer-links a:hover { color: var(--accent); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center; color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+.whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; box-shadow: 0 4px 20px rgba(37,211,102,0.4); z-index: 999; transition: var(--transition); text-decoration: none; }
+.whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.5); }
+@media (max-width: 968px) { .nav-links, .nav-cta { display: none; } .hamburger { display: flex; } .hero-content h1 { font-size: 2.2rem; } .hero-stats { gap: 20px; } .enquiry-wrapper, .whatsapp-container { grid-template-columns: 1fr; } .footer-content { grid-template-columns: 1fr; gap: 30px; } .form-row { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .hero-content h1 { font-size: 1.8rem; } .hero-buttons { flex-direction: column; align-items: center; } .section-header h2 { font-size: 1.6rem; } .destinations-grid { grid-template-columns: 1fr; } .enquiry-form-container { padding: 25px; } }
+    </style>
+</head>
+<body>
+<nav class="navbar" id="navbar"><div class="nav-container"><a href="#" class="logo"><span class="logo-icon">🎓</span><span class="logo-text">GradMile <span class="highlight">Edu</span></span></a><ul class="nav-links"><li><a href="#home">Home</a></li><li><a href="#destinations">Destinations</a></li><li><a href="#enquiry">Consultation</a></li><li><a href="#contact">Contact</a></li></ul><div class="nav-cta"><a href="#enquiry" class="btn btn-primary">Get Consultation</a></div><div class="hamburger" id="hamburger"><span></span><span></span><span></span></div></div></nav>
+
+<section class="hero" id="home">
+<div class="hero-slider"><div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920&q=80')"></div><div class="slide" style="background-image: url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=1920&q=80')"></div><div class="slide" style="background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1920&q=80')"></div><div class="slide" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1920&q=80')"></div></div>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<div class="hero-badge">🌍 Trusted by Aspiring Students Worldwide</div>
+<h1>Your Dream of Studying in <span class="typed-text" id="typed-text">Europe</span> Starts Here</h1>
+<p>Expert guidance for students seeking admissions in European, Canadian, and UK universities. We provide personalised consultation from application to visa.</p>
+<div class="hero-buttons"><a href="#enquiry" class="btn btn-primary btn-lg">Start Your Journey <i class="fas fa-arrow-right"></i></a><a href="#destinations" class="btn btn-outline btn-lg">Explore Destinations</a></div>
+<div class="hero-stats"><div class="stat"><span class="stat-number">10+</span><span class="stat-label">Countries</span></div><div class="stat"><span class="stat-number">200+</span><span class="stat-label">Universities</span></div><div class="stat"><span class="stat-number">100%</span><span class="stat-label">Personalised Guidance</span></div></div>
+</div>
+<div class="scroll-indicator"><i class="fas fa-chevron-down"></i></div>
+</section>
+
+<section class="services" id="services"><div class="container">
+<div class="section-header"><span class="section-tag">What We Do</span><h2>Personalised Education Consulting</h2><p>Tailored consultation to recommend the right university and streamlined support throughout your journey</p></div>
+<div class="services-grid">
+<a href="#enquiry" class="service-card"><div class="service-icon"><i class="fas fa-university"></i></div><h3>University Selection</h3><p>Personalised recommendations based on your profile, budget, and career goals</p></a>
+<a href="#enquiry" class="service-card"><div class="service-icon"><i class="fas fa-file-alt"></i></div><h3>Application Support</h3><p>SOP, LOR, CV building and complete application management</p></a>
+<a href="#enquiry" class="service-card"><div class="service-icon"><i class="fas fa-passport"></i></div><h3>Visa Assistance</h3><p>Document preparation, mock interviews, and embassy appointment scheduling</p></a>
+<a href="#enquiry" class="service-card"><div class="service-icon"><i class="fas fa-piggy-bank"></i></div><h3>Scholarship Guidance</h3><p>Identify and apply for scholarships to reduce your financial burden</p></a>
+<a href="#enquiry" class="service-card"><div class="service-icon"><i class="fas fa-home"></i></div><h3>Accommodation Help</h3><p>Find safe, affordable housing near your university campus</p></a>
+<a href="#enquiry" class="service-card"><div class="service-icon"><i class="fas fa-plane-departure"></i></div><h3>Pre-Departure Briefing</h3><p>Everything you need to know before you fly — culture, finances, essentials</p></a>
+<a href="#enquiry" class="service-card"><div class="service-icon"><i class="fas fa-hands-helping"></i></div><h3>Post-Departure Support</h3><p>Early days guidance — local registration, health insurance, bank setup, transport, and settling in</p></a>
+</div></div></section>
+
+<section class="destinations" id="destinations"><div class="container">
+<div class="section-header"><span class="section-tag">Where to Study</span><h2>Top Destinations for Higher Education</h2><p>Explore countries offering world-class education and career opportunities</p></div>
+<div class="destinations-grid">
+<h3 class="continent-label">🇪🇺 Europe</h3>
+<div class="destination-card"><div class="dest-flag">🇩🇪</div><h3>Germany</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Engineering & Technology</li><li><strong>Tuition:</strong> €0 – €1,500/semester (public)</li><li><strong>Living Cost:</strong> €850 – €1,200/month</li><li><strong>Language:</strong> English & German programs</li><li><strong>Post-Study Work:</strong> 18-month job seeker visa</li></ul></div>
+<div class="destination-card"><div class="dest-flag">🇳🇱</div><h3>Netherlands</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Business & Social Sciences</li><li><strong>Tuition:</strong> €8,000 – €20,000/year</li><li><strong>Living Cost:</strong> €900 – €1,300/month</li><li><strong>Language:</strong> English (widely available)</li><li><strong>Post-Study Work:</strong> 1-year Orientation visa</li></ul></div>
+<div class="destination-card"><div class="dest-flag">🇫🇷</div><h3>France</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Arts, Fashion & Business</li><li><strong>Tuition:</strong> €2,770 – €16,000/year</li><li><strong>Living Cost:</strong> €800 – €1,200/month</li><li><strong>Language:</strong> French & English programs</li><li><strong>Post-Study Work:</strong> 2-year residence permit</li></ul></div>
+<div class="destination-card"><div class="dest-flag">🇮🇹</div><h3>Italy</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Architecture, Design & Arts</li><li><strong>Tuition:</strong> €900 – €4,000/year (public)</li><li><strong>Living Cost:</strong> €700 – €1,100/month</li><li><strong>Language:</strong> Italian & English programs</li></ul></div>
+<div class="destination-card"><div class="dest-flag">🇮🇪</div><h3>Ireland</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Technology & Pharma</li><li><strong>Tuition:</strong> €10,000 – €25,000/year</li><li><strong>Living Cost:</strong> €900 – €1,500/month</li><li><strong>Language:</strong> English</li><li><strong>Post-Study Work:</strong> 2-year stay-back visa</li></ul></div>
+<div class="destination-card"><div class="dest-flag">🇸🇪</div><h3>Sweden</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Innovation & Sustainability</li><li><strong>Tuition:</strong> SEK 80,000 – 295,000/year</li><li><strong>Living Cost:</strong> ~€800/month</li><li><strong>Language:</strong> English (most Masters)</li></ul></div>
+<div class="destination-card"><div class="dest-flag">🇪🇸</div><h3>Spain</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Business & Tourism</li><li><strong>Tuition:</strong> €2,000 – €18,000/year</li><li><strong>Living Cost:</strong> €700 – €1,000/month</li><li><strong>Language:</strong> Spanish & English programs</li></ul></div>
+<div class="destination-card"><div class="dest-flag">🇩🇰</div><h3>Denmark</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Green Energy & Design</li><li><strong>Tuition:</strong> €6,000 – €16,000/year</li><li><strong>Living Cost:</strong> ~€900/month</li><li><strong>Language:</strong> English (most Masters)</li></ul></div>
+<div class="destination-card"><div class="dest-flag">🇵🇱</div><h3>Poland</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Medicine & Engineering</li><li><strong>Tuition:</strong> €2,000 – €6,000/year</li><li><strong>Living Cost:</strong> €400 – €700/month</li><li><strong>Language:</strong> English programs available</li></ul></div>
+<h3 class="continent-label">🇬🇧 United Kingdom</h3>
+<div class="destination-card"><div class="dest-flag">🇬🇧</div><h3>United Kingdom</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Business, Finance & STEM</li><li><strong>Tuition:</strong> £12,000 – £38,000/year</li><li><strong>Living Cost:</strong> £1,000 – £1,500/month</li><li><strong>Language:</strong> English</li><li><strong>Post-Study Work:</strong> 2-year Graduate Route visa</li></ul></div>
+<h3 class="continent-label">🇨🇦 North America</h3>
+<div class="destination-card"><div class="dest-flag">🇨🇦</div><h3>Canada</h3><ul class="dest-facts"><li><strong>Top Domain:</strong> Technology, Business & Healthcare</li><li><strong>Tuition:</strong> CAD $20,000 – $55,000/year</li><li><strong>Living Cost:</strong> CAD $1,000 – $1,800/month</li><li><strong>Language:</strong> English & French programs</li><li><strong>Post-Study Work:</strong> Up to 3-year PGWP</li></ul></div>
+</div></div></section>
+
+<section class="enquiry" id="enquiry"><div class="container"><div class="enquiry-wrapper">
+<div class="enquiry-info"><span class="section-tag">Get Started</span><h2>Consultation</h2><p>Fill in your details and preferences. We’ll reach out with personalised university recommendations and next steps.</p>
+<div class="enquiry-features"><div class="feature-item"><i class="fas fa-check-circle"></i><span>100% Personalised Consultation</span></div><div class="feature-item"><i class="fas fa-check-circle"></i><span>Tailored University Shortlist</span></div><div class="feature-item"><i class="fas fa-check-circle"></i><span>Scholarship Eligibility Check</span></div><div class="feature-item"><i class="fas fa-check-circle"></i><span>Response within 24 Hours</span></div></div>
+<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80" alt="Students consulting" class="enquiry-image"></div>
+<div class="enquiry-form-container"><form id="enquiry-form" class="enquiry-form" action="https://api.web3forms.com/submit" method="POST"><h3>Tell Us About Yourself</h3>
+<input type="hidden" name="access_key" value="9cc15498-7a7c-40ae-a3df-12471c6fbfcf">
+<input type="hidden" name="subject" value="New Enquiry - GradMile Edu">
+<input type="hidden" name="from_name" value="GradMile Edu Website">
+<input type="hidden" name="redirect" value="">
+<div class="form-group"><label for="fullName">Full Name *</label><input type="text" id="fullName" name="name" required placeholder="Enter your full name"></div>
+<div class="form-group"><label for="email">Email ID *</label><input type="email" id="email" name="email" required placeholder="your.email@example.com"></div>
+<div class="form-group"><label for="phone">Mobile Number *</label><div style="display:flex;gap:8px;"><select id="phoneCode" name="phone_code" style="width:120px;padding:12px;border:2px solid #e5e7eb;border-radius:8px;font-size:0.9rem;background:#fafafa;"><option value="+91">🇮🇳 +91</option><option value="+1">🇺🇸 +1</option><option value="+1">🇨🇦 +1</option><option value="+44">🇬🇧 +44</option><option value="+49">🇩🇪 +49</option><option value="+33">🇫🇷 +33</option><option value="+31">🇳🇱 +31</option><option value="+39">🇮🇹 +39</option><option value="+353">🇮🇪 +353</option><option value="+46">🇸🇪 +46</option><option value="+34">🇪🇸 +34</option><option value="+45">🇩🇰 +45</option><option value="+48">🇵🇱 +48</option><option value="+971">🇦🇪 +971</option><option value="+61">🇦🇺 +61</option><option value="+86">🇨🇳 +86</option><option value="+81">🇯🇵 +81</option></select><input type="tel" id="phone" name="phone" required placeholder="XXXXX XXXXX" style="flex:1;"></div></div>
+<div class="form-row"><div class="form-group"><label for="country">Preferred Country *</label><select id="country" name="country" required><option value="">Select Country</option><option value="Germany">🇩🇪 Germany</option><option value="United Kingdom">🇬🇧 United Kingdom</option><option value="Netherlands">🇳🇱 Netherlands</option><option value="France">🇫🇷 France</option><option value="Italy">🇮🇹 Italy</option><option value="Ireland">🇮🇪 Ireland</option><option value="Sweden">🇸🇪 Sweden</option><option value="Spain">🇪🇸 Spain</option><option value="Denmark">🇩🇰 Denmark</option><option value="Poland">🇵🇱 Poland</option><option value="Canada">🇨🇦 Canada</option><option value="Other">Other</option></select></div>
+<div class="form-group"><label for="degree">Degree Level *</label><select id="degree" name="degree" required><option value="">Select Degree</option><option value="Bachelors">Bachelor's</option><option value="Masters">Master's</option><option value="PhD">PhD / Doctorate</option><option value="Diploma">Diploma / Certificate</option><option value="MBA">MBA</option></select></div></div>
+<div class="form-group"><label for="message">Message</label><textarea id="message" name="message" rows="3" placeholder="Tell us about your goals, preferred field, budget, or any questions..."></textarea></div>
+<button type="submit" class="btn btn-primary btn-full"><i class="fas fa-paper-plane"></i> Submit Enquiry</button>
+<p class="form-disclaimer">By submitting, you agree to receive a personalised consultation from GradMile Edu.</p></form>
+<div id="form-success" class="form-success hidden"><i class="fas fa-check-circle"></i><h3>Thank You!</h3><p>Your enquiry has been submitted. We’ll reach out within 24 hours with personalised recommendations.</p></div></div>
+</div></div></section>
+
+<section class="contact" id="contact"><div class="container">
+<div class="section-header"><span class="section-tag">Reach Us</span><h2>Get in Touch</h2><p>Prefer a quick chat? Send us a message on WhatsApp or fill the consultation form above.</p></div>
+<div class="whatsapp-container">
+<div class="whatsapp-card"><div class="wa-icon"><i class="fab fa-whatsapp"></i></div><h3>Chat With Us Now</h3><p>Type your message below and it’ll open WhatsApp directly.</p>
+<form id="whatsapp-form" class="wa-form"><div class="form-group"><label for="waName">Your Name</label><input type="text" id="waName" placeholder="Your name" required></div><div class="form-group"><label for="waMessage">Your Message</label><textarea id="waMessage" rows="3" placeholder="Hi! I'm interested in studying abroad. I'd like to know about..." required></textarea></div><button type="submit" class="btn btn-whatsapp btn-full"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button></form></div>
+<div class="contact-info-card"><h3>How to Reach Us</h3>
+<div class="contact-item"><i class="fas fa-envelope"></i><div><strong>Email</strong><p><a href="#enquiry">Fill the consultation form above →</a></p></div></div>
+<div class="contact-item"><i class="fab fa-whatsapp"></i><div><strong>WhatsApp</strong><p><a href="#contact">Use the chat form or tap the green button →</a></p></div></div>
+</div></div></div></section>
+
+<footer class="footer"><div class="container"><div class="footer-content">
+<div class="footer-brand"><span class="logo-icon">🎓</span><span class="logo-text">GradMile <span class="highlight">Edu</span></span><p>Your graduation is just a mile away. Personalised consultation for students seeking admissions in European, Canadian, and UK universities.</p></div>
+<div class="footer-links"><h4>Quick Links</h4><a href="#home">Home</a><a href="#destinations">Destinations</a><a href="#enquiry">Consultation</a><a href="#contact">Contact</a></div>
+<div class="footer-links"><h4>Destinations</h4><a href="#destinations">Europe</a><a href="#destinations">United Kingdom</a><a href="#destinations">Canada</a></div>
+</div><div class="footer-bottom"><p>&copy; 2026 GradMile Edu. All rights reserved.</p></div></div></footer>
+
+<a href="https://wa.me/14253000441?text=Hi!%20I'm%20interested%20in%20studying%20abroad." class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => { if (window.scrollY > 50) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled'); });
+const slides = document.querySelectorAll('.hero-slider .slide'); let currentSlide = 0;
+function nextSlide() { slides[currentSlide].classList.remove('active'); currentSlide = (currentSlide + 1) % slides.length; slides[currentSlide].classList.add('active'); }
+setInterval(nextSlide, 5000);
+const destinations = ['Europe', 'Canada', 'UK', 'Germany', 'Italy', 'France', 'Ireland', 'Netherlands', 'Spain', 'Sweden', 'Denmark', 'Poland'];
+const typedElement = document.getElementById('typed-text'); let destIndex = 0; let charIndex = 0; let isDeleting = false;
+function typeEffect() { const current = destinations[destIndex]; if (isDeleting) { typedElement.textContent = current.substring(0, charIndex - 1); charIndex--; } else { typedElement.textContent = current.substring(0, charIndex + 1); charIndex++; } if (!isDeleting && charIndex === current.length) { setTimeout(() => { isDeleting = true; }, 2000); setTimeout(typeEffect, 2000); return; } if (isDeleting && charIndex === 0) { isDeleting = false; destIndex = (destIndex + 1) % destinations.length; } setTimeout(typeEffect, isDeleting ? 50 : 100); }
+setTimeout(typeEffect, 3000);
+const enquiryForm = document.getElementById('enquiry-form'); const formSuccess = document.getElementById('form-success');
+enquiryForm.addEventListener('submit', async function(e) { e.preventDefault();
+const phoneCode = document.getElementById('phoneCode').value;
+const fd = { name: document.getElementById('fullName').value, email: document.getElementById('email').value, phone: phoneCode + ' ' + document.getElementById('phone').value, country: document.getElementById('country').value, degree: document.getElementById('degree').value, message: document.getElementById('message').value };
+// Send to Web3Forms (delivers to your email)
+const formData = new FormData(enquiryForm);
+formData.set('phone', fd.phone);
+try { await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData }); } catch(err) { console.log('Form submitted'); }
+// Also send to WhatsApp
+const waMsg = `New Enquiry!\nName: ${fd.name}\nEmail: ${fd.email}\nPhone: ${fd.phone}\nCountry: ${fd.country}\nDegree: ${fd.degree}\nMsg: ${fd.message || 'None'}`;
+window.open(`https://wa.me/14253000441?text=${encodeURIComponent(waMsg)}`, '_blank');
+enquiryForm.classList.add('hidden'); formSuccess.classList.remove('hidden'); });
+const waForm = document.getElementById('whatsapp-form');
+waForm.addEventListener('submit', function(e) { e.preventDefault(); const name = document.getElementById('waName').value; const message = document.getElementById('waMessage').value; window.open(`https://wa.me/14253000441?text=${encodeURIComponent(`Hi! I'm ${name}.\n\n${message}`)}`, '_blank'); });
+document.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('click', function(e) { e.preventDefault(); const t = document.querySelector(this.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); });
+const hamburger = document.getElementById('hamburger'); const navLinks = document.querySelector('.nav-links');
+hamburger.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; } }); }, { threshold: 0.1 });
+document.querySelectorAll('.service-card, .destination-card').forEach(card => { card.style.opacity = '0'; card.style.transform = 'translateY(20px)'; card.style.transition = 'opacity 0.6s ease, transform 0.6s ease'; observer.observe(card); });
+</script>
+</body>
+</html>
